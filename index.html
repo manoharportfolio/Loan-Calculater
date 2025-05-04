@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="This is a simple loan calculator website. It calculates simple interest."
+    />
+    <meta name="author" content="Manohar" />
+    <meta
+      name="keywords"
+      content="Loan calculater, simple intrest, intrest calculater,grow"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loan Calculator</title>
+    <style>
+      body {
+        background-color: gray;
+        font-family: Arial, sans-serif;
+      }
+      .box {
+        margin: 50px auto;
+        box-shadow: 3px 5px 10px black;
+        background-color: white;
+        border-radius: 10px;
+        width: 300px;
+        padding: 20px;
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      label {
+        display: block;
+        margin-top: 10px;
+      }
+      input[type="range"] {
+        width: 100%;
+      }
+      .slider-value {
+        text-align: right;
+        font-weight: bold;
+      }
+      .info {
+        margin-top: 20px;
+      }
+      .info h3 {
+        margin: 5px 0;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <h1>Loan Calculator</h1>
+
+      <label for="principal"
+        >Principal Amount (₹):
+        <span id="principalVal" class="slider-value">1000</span></label
+      >
+      <input type="range" id="principal" min="100" max="10000" value="1000" />
+
+      <label for="rate"
+        >Interest Rate (%):
+        <span id="rateVal" class="slider-value">5</span></label
+      >
+      <input type="range" id="rate" min="1" max="20" value="5" />
+
+      <label for="time"
+        >Time (Years): <span id="timeVal" class="slider-value">1</span></label
+      >
+      <input type="range" id="time" min="1" max="365" value="1" />
+
+      <div class="info">
+        <h3>Daily Interest Rate: <span id="dailyInt">0</span></h3>
+        <h3>Return Payment: ₹<span id="returnPayment">0</span></h3>
+        <h3>Daily Payment: ₹<span id="dailyPayment">0</span></h3>
+        <h3>Total Amount: ₹<span id="totalAmount">0</span></h3>
+      </div>
+    </div>
+
+    <script>
+      const principalSlider = document.getElementById("principal");
+      const rateSlider = document.getElementById("rate");
+      const timeSlider = document.getElementById("time");
+
+      const principalVal = document.getElementById("principalVal");
+      const rateVal = document.getElementById("rateVal");
+      const timeVal = document.getElementById("timeVal");
+
+      const dailyInt = document.getElementById("dailyInt");
+      const returnPayment = document.getElementById("returnPayment");
+      const dailyPayment = document.getElementById("dailyPayment");
+      const totalAmount = document.getElementById("totalAmount");
+
+      function calculate() {
+        const P = parseFloat(principalSlider.value);
+        const R = parseFloat(rateSlider.value);
+        const T = parseFloat(timeSlider.value);
+
+        principalVal.textContent = P;
+        rateVal.textContent = R;
+        timeVal.textContent = T;
+
+        const SI = (P * R * T) / 100;
+        const total = P + SI;
+        const days = T;
+        const dailyPay = total / days;
+
+        dailyInt.textContent = (R / 100).toFixed(2) + "%";
+        returnPayment.textContent = total.toFixed(2);
+        dailyPayment.textContent = dailyPay.toFixed(2);
+        totalAmount.textContent = SI.toFixed(2);
+      }
+
+      principalSlider.addEventListener("input", calculate);
+      rateSlider.addEventListener("input", calculate);
+      timeSlider.addEventListener("input", calculate);
+
+      calculate();
+    </script>
+  </body>
+</html>
